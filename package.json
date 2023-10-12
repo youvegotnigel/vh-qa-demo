@@ -13,7 +13,7 @@
     "test:e2e:non-smoke": "npx playwright test tests-examples/ --grep-invert @smoke --project=firefox"
   },
   "keywords": [],
-  "author": "",
+  "author": "youvegotnigel",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.38.1",
