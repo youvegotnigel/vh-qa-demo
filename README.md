@@ -40,5 +40,11 @@ The tests are using https://demoqa.com/
 - `npm run test-ui-auth` runs profile-stored-auth-multi-role-example.spec.ts (test will fail due to application limitations)
 - `npm run test-vrt` runs visual-regression.spec.ts - visual regression testing with applitools 
 
+## Refer Doc
+
+https://playwright.dev/docs/api/class-elementhandle
+https://playwright.dev/docs/test-assertions
+https://playwright.dev/docs/locators
+
 
 Happy Testing 🎭
