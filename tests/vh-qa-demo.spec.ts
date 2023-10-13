@@ -92,6 +92,7 @@ test.describe('Demo Tests', () => {
             if(imgSrc?.length > 1) {
                 //@ts-ignore
                 const res = await page.request.get(baseURL + imgSrc);
+                // We can use playwright for API tests like here to validate the network status code to be 200
                 expect.soft(res.status(), "Failed to load: "+ imgSrc).toBe(200);
             }
         }
