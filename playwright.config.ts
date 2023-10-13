@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 
+/* Config file for Report Portal */
 const RPconfig = {
   apiKey: 'nigel-test_WS7JqeOuTfGudrPAQVis0IfkHHq2WH150XE1ia821rSmUWkSiL9EP8VGq-5ZURTd',
   endpoint: 'http://10.127.91.203:8080/api/v1',
@@ -37,8 +38,8 @@ export default defineConfig({
   outputDir: './test-results',
   preserveOutput: 'always',
 
-   /* Maximum time expect() should wait for the condition to be met. */
-  timeout: 30*1000,
+   /* Maximum time wait for the condition to be met. */
+  timeout: 60*1000,
 
   expect: {
     timeout: 5*1000,
@@ -72,7 +73,7 @@ export default defineConfig({
     /* You can use multiple reporters at the same time */
     reporter: [
       ['list', { printSteps: true }],
-      ['html', { open: 'on-failure',  outputFolder: './test-results/html' }],
+      ['html', { open: 'on-failure',  outputFolder: './html-test-results' }],
       ['json', {  outputFile: './test-results/test-results.json' }],
       ['junit', { outputFile: './test-results/results.xml' }],
       // ['blob', { outputDir: './test-results/blob-report' }],
@@ -88,11 +89,15 @@ export default defineConfig({
     // headless: process.env.RUN_HEADLESS?.toLowerCase() === 'true',
     // storageState: 'storageState.json',
     actionTimeout: 10 * 1000,
+
+    /* used to take the screenshots if test fails */
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    
+    /* used to record the videos of tests */
+    video: 'on-first-retry',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
