@@ -16,16 +16,12 @@ test.describe('Demo Tests', () => {
     });
 
 
-    test('Hover', async ({ page }, testInfo) => {
+    test('Hover', async ({ page }) => {
 
         await page.getByRole('link', { name: 'Hovers' }).click();
 
         await expect(page.getByText('Hovers')).toBeVisible()
         await expect(page.getByRole('heading', { name: 'Hovers' })).toBeVisible()
-
-        // Capture a screenshot and attach it
-        const screenshot = await page.screenshot();
-        await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
 
         await page.locator('(//*[@alt=\'User Avatar\'])[2]').hover();
         await expect(page.getByText('name: user2')).toBeVisible()
@@ -33,7 +29,7 @@ test.describe('Demo Tests', () => {
 
 
 
-    test('Login', async ({ page }, testInfo) => {
+    test('Login', async ({ page }) => {
 
         await page.getByRole('link', { name: 'Form Authentication' }).click();
 
@@ -44,18 +40,13 @@ test.describe('Demo Tests', () => {
         await page.locator('#password').fill("SuperSecretPassword!");
         await page.getByRole('button', { name: /Login/ }).click();
 
-        // Capture a screenshot and attach it
-        const screenshot = await page.screenshot();
-        await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
-
-
         await expect(page.getByText(/You logged into a secure area!/)).toBeVisible();
         await expect(page.locator('//h2[normalize-space()=\'Secure Area\']')).toBeVisible();
     });
 
 
 
-    test('Dropdown', async ({ page }, testInfo) => {
+    test('Dropdown', async ({ page }) => {
 
         await page.getByRole('link', { name: 'Dropdown' }).click();
 
@@ -66,16 +57,12 @@ test.describe('Demo Tests', () => {
         // await page.locator('#dropdown').selectOption({value:'2'});
         // await page.locator('#dropdown').selectOption({index:1}); // index will start from zero
 
-        // Capture a screenshot and attach it
-        const screenshot = await page.screenshot();
-        await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
-
         const value = await page.locator('#dropdown>option[selected]').textContent();
         await expect(value).toEqual('Option 2')
     });
 
 
-    test('Mutiple Windows', async ({ page }, testInfo) => {
+    test('Mutiple Windows', async ({ page }) => {
 
         await page.getByRole('link', { name: 'Multiple Windows' }).click();
 
@@ -83,12 +70,31 @@ test.describe('Demo Tests', () => {
 
         await page.getByRole('link', { name: 'Click Here' }).click();
 
-        // Capture a screenshot and attach it
-        const screenshot = await page.screenshot();
-        await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
-
         await expect(page.getByRole('heading', { name: 'New Window' })).toBeVisible()
+    });
 
+
+    test('Broken Images', async ({ page, baseURL }) => {
+
+        await page.getByRole('link', { name: 'Broken Images' }).click();
+        await expect(page.getByRole('heading', { name: 'Broken Images' })).toBeVisible()
+        await page.waitForLoadState('domcontentloaded');
+
+        const images = await page.locator('img');
+        const allImages = await images.all();
+
+        for await (const img of allImages) {
+
+            const imgSrc = await img.getAttribute('src');
+            expect.soft(imgSrc?.length).toBeGreaterThan(1);
+
+            //@ts-ignore
+            if(imgSrc?.length > 1) {
+                //@ts-ignore
+                const res = await page.request.get(baseURL + imgSrc);
+                expect.soft(res.status(), "Failed to load: "+ imgSrc).toBe(200);
+            }
+        }
     });
 
 
