@@ -83,7 +83,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://the-internet.herokuapp.com/',
+    baseURL: 'https://the-internet.herokuapp.com/',
 
     // headless: process.env.RUN_HEADLESS?.toLowerCase() === 'true',
     // storageState: 'storageState.json',
