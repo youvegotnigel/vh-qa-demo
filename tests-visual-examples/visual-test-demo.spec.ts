@@ -43,7 +43,7 @@ test.beforeAll(async () => {
     Batch = new BatchInfo({ name: `sauce demo website - ${runnerName}` });
 
     Config = new Configuration();
-    Config.setApiKey("8Z2T9102byhRJ6vomIwrkQFILTE0y8z5l1XuOtTQfSKso110");
+    Config.setApiKey("<API-KEY>");
 
     Config.setBatch(Batch);
     if (USE_ULTRAFAST_GRID) {
