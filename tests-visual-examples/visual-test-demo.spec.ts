@@ -12,7 +12,13 @@ import {
     Target
 } from '@applitools/eyes-playwright';
 
-const URL = 'https://www.ebay.com/';
+// const USERNAME = "problem_user";
+const USERNAME = "standard_user";
+const PASSWORD = "secret_sauce";
+const URL = 'https://www.saucedemo.com/';
+const VIEWPORT_HEIGHT = 1200;
+const VIEWPORT_WIDTH  = 1600;
+
 
 // Applitools
 // export const USE_ULTRAFAST_GRID: boolean = true;
@@ -34,10 +40,10 @@ test.beforeAll(async () => {
     }
 
     const runnerName = (USE_ULTRAFAST_GRID) ? 'Ultrafast Grid' : 'Classic runner';
-    Batch = new BatchInfo({ name: `ebay website - ${runnerName}` });
+    Batch = new BatchInfo({ name: `sauce demo website - ${runnerName}` });
 
     Config = new Configuration();
-    Config.setApiKey("<API-KEY>");
+    Config.setApiKey("8Z2T9102byhRJ6vomIwrkQFILTE0y8z5l1XuOtTQfSKso110");
 
     Config.setBatch(Batch);
     if (USE_ULTRAFAST_GRID) {
@@ -56,13 +62,19 @@ test.beforeEach(async ({ page }) => {
     eyes = new Eyes(Runner, Config);
     await eyes.open(
         page,
-        'ebay',
+        'sauce demo',
         test.info().title,
-        { width: 1024, height: 768 }
+        { width: VIEWPORT_WIDTH, height: VIEWPORT_HEIGHT }
     );
     //end of Applitools
 
     await page.goto(URL);
+
+    // login
+    await page.locator('#user-name').fill(USERNAME);
+    await page.locator('#password').fill(PASSWORD);
+    await page.locator('#login-button').click();
+    await expect(page).toHaveURL(/inventory.html/);
 });
 
 
@@ -78,41 +90,36 @@ test.afterAll(async () => {
 });
 
 
-test.describe('ebay website', () => {
+test.describe('sauce demo website', () => {
 
-    test('Test Home Page', async ({ page }) => {
+    test.use({ viewport: { width: VIEWPORT_WIDTH, height: VIEWPORT_HEIGHT } });
 
-        await expect(page).toHaveTitle(/Electronics, Cars, Fashion, Collectibles & More | eBay/);
-
-        // https://applitools.com/docs/api-ref/sdk-api/playwright/js-intro/checksettings#region-match-levels
-        // Ignore colors: Similar to the strict match level but ignores changes in colors.
-        await eyes.check('Home Page', Target.window().fully().ignoreColors());
-    });
-
-
-    test('Test Electronics Page', async ({ page }) => {
-
-        await page.getByRole('link', { name: 'Electronics' }).click();
-
-        const title_banner = await page.locator('//h1').textContent()
-        await expect(title_banner).toEqual('Electronics');
-        await page.waitForLoadState('domcontentloaded');
+    test('Test Inventory Page', async () => {
 
         // https://applitools.com/docs/api-ref/sdk-api/playwright/js-intro/checksettings#region-match-levels
         // Layout: Check only the layout and ignore actual text and graphics.
-        await eyes.check('Electronics Page', Target.window().fully().layout());
+        await eyes.check('Inventory Page', Target.window().fully().layout());
     });
 
 
-    test('Test Register Page', async ({ page }) => {
+    test('Test Adding Items to Cart', async ({ page }) => {
+        
+        await page.locator('#add-to-cart-sauce-labs-backpack').click()
+        await page.locator('#add-to-cart-sauce-labs-bolt-t-shirt').click()
 
-        await page.getByRole('link', { name: 'register' }).click();
-        await expect(page.getByRole('heading', { name: 'Create an account' })).toBeVisible()
+        await eyes.check('Inventory Page with Items in Cart', Target.window().fully());
+    });
+
+
+    test('Test Cart Page', async ({ page }) => {
+
+        await page.locator('#add-to-cart-sauce-labs-backpack').click()
+        await page.locator('#add-to-cart-sauce-labs-bolt-t-shirt').click()
+
+        await page.locator('#shopping_cart_container').click();
         await page.waitForLoadState('domcontentloaded');
 
-        // https://applitools.com/docs/api-ref/sdk-api/playwright/js-intro/checksettings
-        await eyes.check('Register Page', Target.window().fully());
+        await eyes.check('Cart Page', Target.window().fully());
     });
-
 
 });
