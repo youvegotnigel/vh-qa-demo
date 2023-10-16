@@ -3,3 +3,4 @@ node_modules/
 /html-test-results/
 /playwright-report/
 /playwright/.cache/
+/tests/*/*.png
