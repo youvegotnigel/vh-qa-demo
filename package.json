@@ -21,6 +21,7 @@
     "@types/node": "^20.8.2"
   },
   "dependencies": {
-    "@applitools/eyes-playwright": "^1.21.0"
+    "@applitools/eyes-playwright": "^1.21.0",
+    "@axe-core/playwright": "^4.8.1"
   }
 }
