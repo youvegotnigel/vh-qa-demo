@@ -61,11 +61,23 @@ test.afterAll(async () => {
 test.describe('Applitools Visual Test Demo', () => {
 
 
-    test('Visual Comparison', async ({ page }) => {
+    test('Visual Comparison Failing Test', async ({ page }) => {
 
         await page.goto(URL);
 
         await eyes.check('Riddle Page', Target.window().fully());
+
+    });
+
+
+    test('Visual Comparison Passing Test', async ({ page }) => {
+
+        await page.goto(`https://www.vitalhub.lk/`);
+
+        // wait for content to load
+        await page.waitForLoadState('domcontentloaded');
+        
+        await eyes.check('Vitalhub Home Page', Target.window().fully());
 
     });
 
