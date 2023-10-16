@@ -8,7 +8,7 @@ import {
     Target
 } from '@applitools/eyes-playwright';
 
-const URL = 'file:///C:/dev/personal/playwright-projects/vh-qa-demo/riddle-me/riddle.html';
+const URL = `file://${process.cwd()}\\pages\\riddle.html`;
 const VIEWPORT_HEIGHT = 1200;
 const VIEWPORT_WIDTH = 1600;
 
