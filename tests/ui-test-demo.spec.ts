@@ -62,18 +62,6 @@ test.describe('Demo Tests', () => {
     });
 
 
-    test('Mutiple Windows', async ({ page }) => {
-
-        await page.getByRole('link', { name: 'Multiple Windows' }).click();
-
-        await expect(page.getByRole('heading', { name: 'Opening a new window' })).toBeVisible()
-
-        await page.getByRole('link', { name: 'Click Here' }).click();
-
-        await expect(page.getByRole('heading', { name: 'New Window' })).toBeVisible()
-    });
-
-
     test('Broken Images', async ({ page, baseURL }) => {
 
         await page.getByRole('link', { name: 'Broken Images' }).click();
@@ -98,7 +86,7 @@ test.describe('Demo Tests', () => {
         }
     });
 
-
+    
     test('Has Title', async ({ page }, testInfo) => {
         await page.goto('https://www.vitalhub.lk/');
 
@@ -108,6 +96,18 @@ test.describe('Demo Tests', () => {
 
         // Expect a title "to contain" a substring.
         await expect(page).toHaveTitle(/VitalHub Innovations Lab/);
+    });
+    
+
+    test('Mutiple Windows', async ({ page }) => {
+
+        await page.getByRole('link', { name: 'Multiple Windows' }).click();
+
+        await expect(page.getByRole('heading', { name: 'Opening a new window' })).toBeVisible()
+
+        await page.getByRole('link', { name: 'Click Here' }).click();
+
+        await expect(page.getByRole('heading', { name: 'New Window' })).toBeVisible()
     });
 
 
