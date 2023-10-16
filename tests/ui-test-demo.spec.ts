@@ -11,7 +11,7 @@ test.describe('Demo Tests', () => {
         // Capture a screenshot and attach it
         const screenshot = await page.screenshot();
         await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
-        
+
         await expect(page).toHaveTitle(/The Internet/);
     });
 
@@ -77,13 +77,36 @@ test.describe('Demo Tests', () => {
             expect.soft(imgSrc?.length).toBeGreaterThan(1);
 
             //@ts-ignore
-            if(imgSrc?.length > 1) {
+            if (imgSrc?.length > 1) {
                 //@ts-ignore
                 const res = await page.request.get(baseURL + imgSrc);
                 // We can use playwright for API tests like here to validate the network status code to be 200
-                expect.soft(res.status(), "Failed to load: "+ imgSrc).toBe(200);
+                expect.soft(res.status(), "Failed to load: " + imgSrc).toBe(200);
             }
         }
+    });
+
+
+    test('Mutiple Windows', async ({ page, context }) => {
+
+        await page.getByRole('link', { name: 'Multiple Windows' }).click();
+
+        await expect(page.getByRole('heading', { name: 'Opening a new window' })).toBeVisible();
+
+        const pagePromise = context.waitForEvent('page');
+
+        await page.getByRole('link', { name: 'Click Here' }).click();
+
+        const newPage = await pagePromise;
+        await newPage.waitForLoadState();
+        const heading = await newPage.locator('//h3').textContent();
+
+        // await expect(page.getByRole('heading', { name: 'Opening a new window' })).toBeVisible();
+        await expect(heading).toEqual('New Window');
+
+        // closing the 2nd tab
+        await newPage.close()
+
     });
 
     
@@ -97,19 +120,6 @@ test.describe('Demo Tests', () => {
         // Expect a title "to contain" a substring.
         await expect(page).toHaveTitle(/VitalHub Innovations Lab/);
     });
-    
-
-    test('Mutiple Windows', async ({ page }) => {
-
-        await page.getByRole('link', { name: 'Multiple Windows' }).click();
-
-        await expect(page.getByRole('heading', { name: 'Opening a new window' })).toBeVisible()
-
-        await page.getByRole('link', { name: 'Click Here' }).click();
-
-        await expect(page.getByRole('heading', { name: 'New Window' })).toBeVisible()
-    });
-
 
 
 });
