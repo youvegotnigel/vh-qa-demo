@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Riddle of the Day</title>
     <style>
@@ -11,29 +12,35 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #333;
             color: #fff;
             padding: 10px;
             text-align: center;
         }
+
         nav {
             background-color: #444;
             text-align: center;
         }
+
         nav ul {
             list-style-type: none;
             padding: 0;
         }
+
         nav li {
             display: inline;
             margin: 10px;
         }
+
         nav a {
             text-decoration: none;
             color: #fff;
             font-weight: bold;
         }
+
         main {
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
@@ -41,23 +48,50 @@
             padding: 20px;
             text-align: center;
         }
+
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px;
         }
+
         #images {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
         }
+
         #images img {
-            max-width: 400px; /* Twice as big in width */
-            max-height: 300px; /* Twice as big in height */
+            max-width: 400px;
+            /* Twice as big in width */
+            max-height: 300px;
+            /* Twice as big in height */
+        }
+
+        .rotate-image-1 {
+            transform: rotate(0deg);
+            transition: transform 0.5s;
+        }
+
+        .rotate-image-2 {
+            transform: rotate(0deg);
+            transition: transform 0.5s;
+        }
+
+        .rotate-image-3 {
+            transform: rotate(0deg);
+            transition: transform 0.5s;
+        }
+
+        #image-rotation {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Riddle of the Day</h1>
@@ -70,15 +104,16 @@
         </ul>
     </nav>
     <main>
-	    <div id="images">
-        <img src="image2.png" alt="Image 2">
-    </div>
+        <div id="images">
+            <img src="image2.png" alt="Image 2" class="rotate-image-2">
+        </div>
         <h2>Can you solve today's riddle?</h2>
         <p id="riddle">Loading...</p>
     </main>
     <div id="images">
-        <img src="image1.png" alt="Image 1">
-        <img src="image3.png" alt="Image 3">
+        <img src="image1.png" alt="Image 1" class="rotate-image-1">
+
+        <img src="image3.png" alt="Image 3" class="rotate-image-3">
     </div>
     <footer>
         &copy; 2023 Riddle of the Day
@@ -87,7 +122,7 @@
     <script>
         // Array of 5 riddles
         const riddles = [
-          "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
+            "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
             "I'm not alive, but I can grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?",
             "I am taken from a mine and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I?",
             "What has keys but can't open locks?",
@@ -131,7 +166,7 @@
             "The more you take, the more you leave behind. What am I?",
             "I'm not alive, but I can grow. I don't have lungs, but I need air. What am I?",
             "What has keys but can't open locks?",
-			"What comes once in a minute, twice in a moment, but never in a thousand years?",
+            "What comes once in a minute, twice in a moment, but never in a thousand years?",
             "I have keys but open no locks. I have space but no room. You can enter, but you can't go inside. What am I?",
             "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
             "I'm not alive, but I can grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?",
@@ -188,5 +223,7 @@
         const riddleElement = document.getElementById("riddle");
         riddleElement.textContent = getRandomRiddle();
     </script>
+
 </body>
+
 </html>
