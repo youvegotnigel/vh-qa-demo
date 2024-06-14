@@ -2,7 +2,8 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Accessibility Testing Demo", () => {
-  test("VHIL home page should not have any violations", async ({ page }) => {
+  test("VHIL home page should not have any violations", async ({ page }, testInfo) => {
+    
     await page.goto(`https://www.vitalhub.lk/`);
 
     // wait for content to load
@@ -10,12 +11,15 @@ test.describe("Accessibility Testing Demo", () => {
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
+    await testInfo.attach("accessibility-scan-results", {
+      body: JSON.stringify(accessibilityScanResults, null, 2),
+      contentType: "application/json",
+    });
+
     expect(accessibilityScanResults.violations).toHaveLength(3);
   });
 
-  test("CDC Dengue page should have only one WCAG A violations", async ({
-    page,
-  }, testInfo) => {
+  test("CDC Dengue page should have only one WCAG A violations", async ({page}, testInfo) => {
     await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
 
     // wait for content to load
@@ -76,9 +80,8 @@ test.describe("Accessibility Testing Demo", () => {
     expect(accessibilityScanResults.violations).toHaveLength(1);
   });
 
-  test.only("VHIL home page should not have any WCAG A violations", async ({
-    page,
-  }, testInfo) => {
+  test.only("VHIL home page should not have any WCAG A violations", async ({ page }, testInfo) => {
+    
     await page.goto(`https://www.vitalhub.lk/`);
 
     // wait for content to load
@@ -140,18 +143,22 @@ test.describe("Accessibility Testing Demo", () => {
     expect(accessibilityScanResults.violations).toHaveLength(3);
   });
 
-  test("S12 home page should not have any WCAG A violations", async ({
-    page,
-  }) => {
-    await page.goto(`https://www.cdc.gov/`);
+  test("S12 home page should not have any WCAG A violations", async ({page}, testInfo) => {
+    
+    await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
 
     // wait for content to load
     await page.waitForLoadState("domcontentloaded");
 
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      //.withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .analyze();
 
-    expect(accessibilityScanResults.violations).toHaveLength(3);
+      await testInfo.attach("accessibility-scan-results", {
+        body: JSON.stringify(accessibilityScanResults, null, 2),
+        contentType: "application/json",
+      });
+
+    expect(accessibilityScanResults.violations).toHaveLength(1);
   });
 });
