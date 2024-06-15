@@ -57,7 +57,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 6,
 
-  testMatch: [/a11y-test-demo.spec/],
+  testMatch: [/cdc-a11y-demo.spec/],
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   // reporter: 'html',
