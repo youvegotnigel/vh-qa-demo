@@ -73,7 +73,7 @@ export default defineConfig({
       ['json', {  outputFile: './test-results/test-results.json' }],
       ['junit', { outputFile: './test-results/results.xml' }],
       // ['blob', { outputDir: './test-results/blob-report' }],
-      // ['@reportportal/agent-js-playwright', RPconfig]
+      // ['@reportportal/agent-js-playwright', RPconfig]  // before enabling this check if report portal server is running
     ],
 
 
