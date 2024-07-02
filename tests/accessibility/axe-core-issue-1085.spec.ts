@@ -59,6 +59,8 @@ test.describe("Axe-Core-Playwright Issue #1085", () => {
     await page.waitForLoadState("domcontentloaded");
 
 
+    // documentation of axe options 
+    // https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright#axebuilderoptionsoptions-axerunoptions
     const accessibilityScanResults = await new AxeBuilder({ page })
     .options({
       runOnly: {
