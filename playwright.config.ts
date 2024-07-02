@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-
 /* Config file for Report Portal */
 const RPconfig = {
   apiKey: 'nigel-test_WS7JqeOuTfGudrPAQVis0IfkHHq2WH150XE1ia821rSmUWkSiL9EP8VGq-5ZURTd',
@@ -21,48 +20,43 @@ const RPconfig = {
     timeout: 0,
   },
 };
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+// import dotenv from 'dotenv';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   testDir: './tests',
+    /* Folder for test artifacts such as screenshots, videos, traces, etc. */
+    outputDir: './test-results',
+    preserveOutput: 'always',
   
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: './test-results',
-  preserveOutput: 'always',
-
-   /* Maximum time wait for the condition to be met. */
-  timeout: 60*1000,
-
-  expect: {
-    timeout: 5*1000,
-},
+     /* Maximum time wait for the condition to be met. */
+    timeout: 10*1000,
+  
+    expect: {
+      timeout: 5*1000,
+  },
 
   /* Run tests in files in parallel */
   fullyParallel: true,
-
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 6,
-
-  testMatch: [/cdc-a11y-demo.spec/],
+ // testMatch: [/cdc-a11y-demo.spec/],
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   // reporter: 'html',
 
-  /* JUnit reporter produces a JUnit-style xml report. */
+    /* JUnit reporter produces a JUnit-style xml report. */
   // reporter: [['junit', { outputFile: './test-results/results.xml' }]],
 
   /* Blob reports contain all the details about the test run and can be used later to produce any other report. */
@@ -79,9 +73,9 @@ export default defineConfig({
       ['json', {  outputFile: './test-results/test-results.json' }],
       ['junit', { outputFile: './test-results/results.xml' }],
       // ['blob', { outputDir: './test-results/blob-report' }],
-      ['@reportportal/agent-js-playwright', RPconfig]
+      // ['@reportportal/agent-js-playwright', RPconfig]
     ],
-  
+
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -109,17 +103,17 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
 
-    // /* Test against mobile viewports. */
+    /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 7'] },
@@ -147,5 +141,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
-
