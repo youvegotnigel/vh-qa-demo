@@ -51,4 +51,34 @@ test.describe("Axe-Core-Playwright Issue #1085", () => {
   });
 
 
+
+  test("solution for 1085", async ({page}, testInfo) => {
+    await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
+
+    // wait for content to load
+    await page.waitForLoadState("domcontentloaded");
+
+
+    const accessibilityScanResults = await new AxeBuilder({ page })
+    .options({
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa"],
+      },
+      rules: {
+        "skip-link": { enabled: true },
+      },
+      })
+      .analyze();
+
+    await testInfo.attach("accessibility-scan-results", {
+      body: JSON.stringify(accessibilityScanResults, null, 2),
+      contentType: "application/json",
+    });
+
+    expect(accessibilityScanResults.violations).toHaveLength(2);
+    
+  });
+
+
 });
