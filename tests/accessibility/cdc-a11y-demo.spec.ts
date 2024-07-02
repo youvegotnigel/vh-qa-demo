@@ -18,7 +18,32 @@ test.describe("Accessibility Testing Demo", () => {
       contentType: "application/json",
     });
 
-    expect(accessibilityScanResults.violations).toHaveLength(1);
+    expect(accessibilityScanResults.violations).toHaveLength(2);
+  });
+
+
+  test("CDC Dengue page should have only two WCAG violations", async ({page}, testInfo) => {
+    await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
+
+    // wait for content to load
+    await page.waitForLoadState("domcontentloaded");
+
+    const accessibilityScanResults = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      // .withRules([
+      //    "skip-link"
+      // ])
+      .analyze();
+
+    await testInfo.attach("accessibility-scan-results", {
+      body: JSON.stringify(accessibilityScanResults, null, 2),
+      contentType: "application/json",
+    });
+
+    expect(accessibilityScanResults.violations).toHaveLength(2);
+
+
+    
   });
 
 
@@ -75,23 +100,23 @@ test.describe("Accessibility Testing Demo", () => {
         "aria-prohibited-attr",
         "aria-treeitem-name",
         "aria-text",
-        //"empty-heading",
+        "empty-heading",
         "heading-order",
         "html-xml-lang-mismatch",
-        //"identical-links-same-purpose",
+        "identical-links-same-purpose",
         "image-redundant-alt",
         "input-button-name",
-        //"label-content-name-mismatch",
-        //"landmark-one-main",
+        "label-content-name-mismatch",
+        "landmark-one-main",
         "link-in-text-block",
         "meta-viewport",
         "select-name",
         "skip-link",
         "tabindex",
         "table-duplicate-name",
-        //"table-fake-caption",
-        "target-size"
-        //"td-has-header",
+        "table-fake-caption",
+        "target-size",
+        "td-has-header",
       ])
       .disableRules([
         "area-alt",
@@ -117,7 +142,7 @@ test.describe("Accessibility Testing Demo", () => {
       contentType: "application/json",
     });
 
-    expect(accessibilityScanResults.violations).toHaveLength(1);
+    expect(accessibilityScanResults.violations).toHaveLength(2);
   });
 
 
