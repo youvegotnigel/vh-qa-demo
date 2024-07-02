@@ -4,24 +4,6 @@ import AxeBuilder from "@axe-core/playwright";
 test.describe("Accessibility Testing Demo", () => {
 
 
-  test("CDC Dengue page should have only one WCAG violations", async ({page}, testInfo) => {
-    await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
-
-    // wait for content to load
-    await page.waitForLoadState("domcontentloaded");
-
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .analyze();
-
-    await testInfo.attach("accessibility-scan-results", {
-      body: JSON.stringify(accessibilityScanResults, null, 2),
-      contentType: "application/json",
-    });
-
-    expect(accessibilityScanResults.violations).toHaveLength(2);
-  });
-
-
   test("CDC Dengue page should have only two WCAG violations", async ({page}, testInfo) => {
     await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
 
@@ -29,10 +11,6 @@ test.describe("Accessibility Testing Demo", () => {
     await page.waitForLoadState("domcontentloaded");
 
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      // .withRules([
-      //    "skip-link"
-      // ])
       .analyze();
 
     await testInfo.attach("accessibility-scan-results", {
@@ -42,9 +20,10 @@ test.describe("Accessibility Testing Demo", () => {
 
     expect(accessibilityScanResults.violations).toHaveLength(2);
 
-
-    
   });
+
+  
+
 
 
 
@@ -82,7 +61,7 @@ test.describe("Accessibility Testing Demo", () => {
 
   
 
-  test("CDC Dengue page should have only one WCAG A and 2A violations", async ({ page }, testInfo) => {
+  test("CDC Dengue page should have only two WCAG A or AA violations extended", async ({ page }, testInfo) => {
     
     await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
 
