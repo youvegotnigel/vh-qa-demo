@@ -42,7 +42,7 @@ test.describe("Accessibility Testing Demo", () => {
 
   
 
-  test("CDC Dengue page should have only two WCAG A or AA violations extended", async ({ page }, testInfo) => {
+  test("CDC Dengue page should have only two WCAG A or AA violations", async ({ page }, testInfo) => {
     
     await page.goto(`https://www.cdc.gov/dengue/about/index.html`);
 
