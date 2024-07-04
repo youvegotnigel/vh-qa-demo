@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sample Form</h1>
+    <form id="sampleForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male" required>
+        <label for="male" style="display:inline;">Male</label>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female" style="display:inline;">Female</label>
+        <input type="radio" id="other" name="gender" value="Other">
+        <label for="other" style="display:inline;">Other</label>
+
+        <label for="title">Title:</label>
+        <select id="title" name="title" required>
+            <option value="Mr.">Mr.</option>
+            <option value="Ms.">Ms.</option>
+            <option value="Mrs.">Mrs.</option>
+            <option value="Dr.">Dr.</option>
+        </select>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <h2>Submitted Data</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Title</th>
+                <th>Address</th>
+                <th>Date of Birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>30</td>
+                <td>Male</td>
+                <td>Mr.</td>
+                <td>123 Main St</td>
+                <td>1990-01-01</td>
+            </tr>
+            <tr>
+                <td>Jane</td>
+                <td>Smith</td>
+                <td>25</td>
+                <td>Female</td>
+                <td>Ms.</td>
+                <td>456 Elm St</td>
+                <td>1995-02-02</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('sampleForm');
+            const dataTable = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+
+            const newRow = dataTable.insertRow();
+
+            const firstNameCell = newRow.insertCell(0);
+            firstNameCell.textContent = form.firstName.value;
+
+            const lastNameCell = newRow.insertCell(1);
+            lastNameCell.textContent = form.lastName.value;
+
+            const ageCell = newRow.insertCell(2);
+            ageCell.textContent = form.age.value;
+
+            const genderCell = newRow.insertCell(3);
+            genderCell.textContent = form.gender.value;
+
+            const titleCell = newRow.insertCell(4);
+            titleCell.textContent = form.title.value;
+
+            const addressCell = newRow.insertCell(5);
+            addressCell.textContent = form.address.value;
+
+            const dobCell = newRow.insertCell(6);
+            dobCell.textContent = form.dob.value;
+
+            form.reset();
+        }
+    </script>
+</body>
+</html>
