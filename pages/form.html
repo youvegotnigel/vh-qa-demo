@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Form</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +30,6 @@
         }
         input[type="text"],
         input[type="number"],
-        input[type="date"],
         textarea,
         select {
             width: 100%;
@@ -104,8 +106,9 @@
         <label for="address">Address:</label>
         <textarea id="address" name="address" rows="4" required></textarea>
 
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" required>
+        <label class="form-label w-100">Date Picker:
+            <input type="text" class="form-control" id="dob" name="my-date" required>
+        </label>
 
         <button type="button" onclick="submitForm()">Submit</button>
     </form>
@@ -146,6 +149,12 @@
     </table>
 
     <script>
+        $(function() {
+            $("#dob").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        });
+
         function submitForm() {
             const form = document.getElementById('sampleForm');
             const dataTable = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
@@ -171,7 +180,7 @@
             addressCell.textContent = form.address.value;
 
             const dobCell = newRow.insertCell(6);
-            dobCell.textContent = form.dob.value;
+            dobCell.textContent = form['my-date'].value;
 
             form.reset();
         }
