@@ -18,7 +18,7 @@
             text-align: center;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -134,6 +134,10 @@
                 <input type="text" class="form-control" id="dob" name="dob" required>
             </label>
 
+            <label class="form-label w-100">Appointment Date:
+                <input type="text" class="form-control" id="appointmentDate" name="appointmentDate" required>
+            </label>
+
             <button type="button" onclick="submitForm()">Submit</button>
         </form>
 
@@ -148,6 +152,7 @@
                     <th>Title</th>
                     <th>Address</th>
                     <th>Date of Birth</th>
+                    <th>Appointment Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -159,6 +164,7 @@
                     <td>Mr.</td>
                     <td>123 Main St</td>
                     <td>1990-01-01</td>
+                    <td>2023-06-15</td>
                 </tr>
                 <tr>
                     <td>Jane</td>
@@ -168,6 +174,7 @@
                     <td>Ms.</td>
                     <td>456 Elm St</td>
                     <td>1995-02-02</td>
+                    <td>2023-07-01</td>
                 </tr>
             </tbody>
         </table>
@@ -175,24 +182,29 @@
 
     <script>
         $(function() {
-            $("#dob").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "1900:2024",
-                dateFormat: "yy-mm-dd",
-                onChangeMonthYear: function(year, month, inst) {
-                    setTimeout(function() {
-                        $('#ui-datepicker-div .ui-datepicker-month').attr('id', 'ui-datepicker-month');
-                        $('#ui-datepicker-div .ui-datepicker-year').attr('id', 'ui-datepicker-year');
-                    }, 0);
-                },
-                beforeShow: function(input, inst) {
-                    setTimeout(function() {
-                        $('#ui-datepicker-div .ui-datepicker-month').attr('id', 'ui-datepicker-month');
-                        $('#ui-datepicker-div .ui-datepicker-year').attr('id', 'ui-datepicker-year');
-                    }, 0);
-                }
-            });
+            function setDatePicker(id) {
+                $(id).datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1900:2024",
+                    dateFormat: "yy-mm-dd",
+                    onChangeMonthYear: function(year, month, inst) {
+                        setTimeout(function() {
+                            $('#ui-datepicker-div .ui-datepicker-month').attr('id', 'ui-datepicker-month');
+                            $('#ui-datepicker-div .ui-datepicker-year').attr('id', 'ui-datepicker-year');
+                        }, 0);
+                    },
+                    beforeShow: function(input, inst) {
+                        setTimeout(function() {
+                            $('#ui-datepicker-div .ui-datepicker-month').attr('id', 'ui-datepicker-month');
+                            $('#ui-datepicker-div .ui-datepicker-year').attr('id', 'ui-datepicker-year');
+                        }, 0);
+                    }
+                });
+            }
+            
+            setDatePicker("#dob");
+            setDatePicker("#appointmentDate");
         });
 
         function login() {
@@ -233,6 +245,9 @@
 
             const dobCell = newRow.insertCell(6);
             dobCell.textContent = form.dob.value;
+
+            const appointmentDateCell = newRow.insertCell(7);
+            appointmentDateCell.textContent = form.appointmentDate.value;
 
             form.reset();
         }
