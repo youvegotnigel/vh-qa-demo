@@ -31,6 +31,47 @@ test.describe("Accessibility Testing Demo", () => {
     expect(accessibilityScanResults.violations).toHaveLength(2);
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   test("CDC Dengue page should have only two WCAG A or AA violations", async ({
     page,
   }, testInfo) => {
