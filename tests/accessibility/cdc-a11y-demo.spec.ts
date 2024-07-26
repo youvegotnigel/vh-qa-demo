@@ -48,7 +48,7 @@ test.describe("Accessibility Testing Demo", () => {
 
 
 
-  
+
 
 
 
@@ -87,7 +87,7 @@ test.describe("Accessibility Testing Demo", () => {
           values: ["wcag2a", "wcag2aa"],
         },
         rules: {
-          accesskeys: { enabled: true },
+          "accesskeys": { enabled: true },
           "area-alt": { enabled: false },
           "aria-allowed-role": { enabled: true },
           "aria-braille-equivalent": { enabled: false },
@@ -99,7 +99,7 @@ test.describe("Accessibility Testing Demo", () => {
           "aria-treeitem-name": { enabled: true },
           "aria-text": { enabled: true },
           "audio-caption": { enabled: false },
-          blink: { enabled: false },
+          "blink": { enabled: false },
           "duplicate-id": { enabled: false },
           "empty-heading": { enabled: true },
           "frame-focusable-content": { enabled: false },
@@ -112,7 +112,7 @@ test.describe("Accessibility Testing Demo", () => {
           "label-content-name-mismatch": { enabled: true },
           "landmark-one-main": { enabled: true },
           "link-in-text-block": { enabled: true },
-          marquee: { enabled: false },
+          "marquee": { enabled: false },
           "meta-viewport": { enabled: true },
           // https://github.com/dequelabs/axe-core/issues/2958
           "nested-interactive": { enabled: false },
@@ -123,7 +123,7 @@ test.describe("Accessibility Testing Demo", () => {
           "server-side-image-map": { enabled: false },
           "skip-link": { enabled: true },
           "svg-img-alt": { enabled: false },
-          tabindex: { enabled: true },
+          "tabindex": { enabled: true },
           "table-duplicate-name": { enabled: true },
           "table-fake-caption": { enabled: true },
           "target-size": { enabled: true },
