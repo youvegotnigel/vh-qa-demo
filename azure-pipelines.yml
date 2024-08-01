@@ -30,3 +30,15 @@ steps:
     artifact: 'playwright-report'
     publishLocation: 'pipeline'
   condition: succeededOrFailed()
+
+- task: PublishTestResults@1
+  inputs:
+    testResultsFiles: '**/results.xml'
+    mergeTestResults: true
+    testRunTitle: 'JUnit Results'
+    failTaskOnFailureToPublishResults: true
+  condition: succeededOrFailed()
+
+
+
+
