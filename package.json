@@ -16,13 +16,14 @@
   "author": "youvegotnigel",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.45.0",
+    "@playwright/test": "^1.57.0",
     "@types/node": "^20.14.9",
     "axe-html-reporter": "^2.2.5"
   },
   "dependencies": {
     "@applitools/eyes-playwright": "^1.28.2",
     "@axe-core/playwright": "^4.9.1",
-    "@reportportal/agent-js-playwright": "^5.1.9"
+    "@reportportal/agent-js-playwright": "^5.1.9",
+    "playwright": "^1.57.0"
   }
 }
