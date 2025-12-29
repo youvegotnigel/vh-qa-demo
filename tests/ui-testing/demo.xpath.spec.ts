@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Demo XPath Tests', () => {
-    
+
 
     test('Verify username input with relative locator', async ({ page }, testInfo) => {
         await page.goto('https://www.saucedemo.com/');
@@ -18,7 +18,9 @@ test.describe('Demo XPath Tests', () => {
         await passwordInput.fill("secret_sauce");
         await page.click("#login-button")                               // used CSS Selector for click
 
+        // Validation
         await expect(page.locator(".app_logo")).toHaveText("Swag Labs")
+
         await page.close();
     });
 
@@ -38,8 +40,38 @@ test.describe('Demo XPath Tests', () => {
         await passwordInput.fill("secret_sauce");
         await page.click("xpath=.//input[@id='login-button']")                  // Used XPath with prefix for Click
 
+        // Validation
         await expect(page.locator(".app_logo")).toHaveText("Swag Labs")
+
         await page.close();
     });
+
+
+    test('Verify username input with proper scoped XPath in Playwright', async ({ page }) => {
+        await page.goto('https://www.saucedemo.com/');
+        
+        await expect(page).toHaveTitle(/Swag Labs/);
+
+        // Parent container
+        const loginContainer = page.locator("#login_button_container");
+
+        // Child elements scoped to the container
+        const userNameInput = loginContainer.locator("xpath=.//input[@id='user-name']");
+        const passwordInput = loginContainer.locator("xpath=.//input[@id='password']");
+        const loginButton   = loginContainer.locator("xpath=.//input[@id='login-button']");
+
+        // Interactions
+        await userNameInput.fill("standard_user");
+        await expect(userNameInput).toHaveValue("standard_user");
+
+        await passwordInput.fill("secret_sauce");
+        await loginButton.click();
+
+        // Validation
+        await expect(page.locator(".app_logo")).toHaveText("Swag Labs");
+
+        await page.close();
+});
+
 
 });
