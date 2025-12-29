@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
-import exp from 'constants';
 
 test.describe('Demo XPath Tests', () => {
-
+    
 
     test('Verify username input with relative locator', async ({ page }, testInfo) => {
         await page.goto('https://www.saucedemo.com/');
